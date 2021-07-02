@@ -92,7 +92,7 @@ begin
 	begin
 		if (CLK'event and CLK = '1') then
 			if (dispensation_EN = '1') then
-				if(choice = '0') then
+				if(choice_reg = '0') then
 					D <= "01";
 				else
 					D <= "10";

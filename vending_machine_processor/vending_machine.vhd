@@ -118,6 +118,7 @@ begin
 				price_choice_reg_EN <= '1';
 				E <= balance;
                 if (C = '1') then
+					nRST_acc <= '1';
                     NSTATE <= Coin_Reception;
                 end if ;
     

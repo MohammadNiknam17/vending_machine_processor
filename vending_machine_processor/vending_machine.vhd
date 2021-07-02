@@ -93,9 +93,9 @@ begin
 		if (CLK'event and CLK = '1') then
 			if (dispensation_EN = '1') then
 				if(choice_reg = '0') then
-					D <= "01";
+					D <= "01";	--S0
 				else
-					D <= "10";
+					D <= "10";	--S1
 				end if;
 			else
 				D <= "00";
@@ -131,6 +131,7 @@ begin
             when soda_dispensation =>
 				dispensation_EN <= '1';
 				E <= coins_to_return;
+				nRST_acc <= '0';
                 NSTATE <= INIT_STATE;
     
             when others =>

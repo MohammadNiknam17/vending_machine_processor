@@ -45,6 +45,14 @@ ARCHITECTURE behavior OF vending_machine_TB IS
    -- Clock period definitions
    constant clk_period : time := 10 ns;
  
+   constant S0price : std_logic_vector(7 downto 0) := "00100001"; --soda S0 price= 33 cent
+   constant S1price : std_logic_vector(7 downto 0) := "01000001"; --soda S1 price= 65 cent
+   
+   constant Nickel : std_logic_vector(7 downto 0) := "00000101"; --us_coin value= 5 cent
+   constant Dime : std_logic_vector(7 downto 0) := "00001010"; --us_coin value= 10 cent
+   constant Quarter : std_logic_vector(7 downto 0) := "00011001"; --us_coin value= 25 cent
+
+
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
@@ -61,9 +69,16 @@ BEGIN
           D => D
         );
 
-   CLK <= not(CLK) after CLK_TIME;
-   nRST <= '0', '1' after 400 ns;  -- hold reset state for 400 ns.
+   CLK <= not(CLK) after clk_period/2;
+   nRST <= '0', '1' after 150 ns;  -- hold reset state for 400 ns.
+   s0 <= S0price; --soda S0 price= 33 cent
+   S1 <= S1price; --soda S1 price= 65 cent
+   choice <= '1', '0' after 700 ns;
+   C <= '0', '1' after 300 ns, '0' after 310 ns, '1'after 350ns, '0' after 360 ns,
+             '1' after 400 ns, '0' after 410 ns, '1'after 450ns, '0' after 460 ns,
+             '1' after 700 ns, '0' after 710 ns, '1'after 750ns, '0' after 760 ns,
+             '1' after 800 ns, '0' after 810 ns;
    
-   
-
+   v <= (others => '0'), Quarter after 290 ns, Nickel after 340 ns, Dime after 400 ns, Quarter after 440 ns,
+   Quarter after 700 ns, Nickel after 750 ns, Dime after 800 ns, (others => '0') after 810 ns;
 END;

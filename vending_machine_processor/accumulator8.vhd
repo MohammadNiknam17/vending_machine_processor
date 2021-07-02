@@ -32,18 +32,20 @@ signal c_in : std_logic;
 signal c_out : std_logic;
 
 begin
-	adder8 : adder8 port map (data_in, temp2, c_in, temp1, c_out);
+	c_in <= '0';
+	
+	adder : adder8 port map (data_in, temp2, c_in, temp1, c_out);
 
-	register: process(clk)
+	reg: process(clk)
 	begin
 		if (clk'event and clk = '1') then
-			if nRST = '0' then
-				data_out <= "00000000";
+			if nRST_acc = '0' then
+				temp2 <= (others => '0');
 			elsif (C = '1') then
 				temp2 <= temp1;
 			end if;
 		end if;
-	end process register;
+	end process reg;
 
 	data_out <= temp2;
 end rtl;

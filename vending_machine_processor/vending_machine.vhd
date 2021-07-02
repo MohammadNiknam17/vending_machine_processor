@@ -106,6 +106,7 @@ begin
 	next_state : process( CSTATE, balance, C, balance_equal, balance_greater, coins_to_return)
     begin
         NSTATE <= CSTATE;
+		nRST_acc <= '1';
         price_choice_reg_EN <= '0';
 		dispensation_EN <= '0';
 		p <= (others => '0');

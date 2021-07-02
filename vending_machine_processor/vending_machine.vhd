@@ -25,6 +25,7 @@ component accumulator8 is
 	port(
 		clk: in std_logic;
 		nRST_acc: in std_logic;
+		C : in std_logic;	--becomes 1 when a coin is detected.
 		data_in : in std_logic_vector(7 downto 0);
 		data_out : out std_logic_vector(7 downto 0)
 		);
@@ -135,7 +136,7 @@ begin
     end process ; -- next_state
 
 	mux : mux21 port map(S0, S1, choice, price);
-	accumulator : accumulator8 port map (clk, nRST_acc, V, balance);
+	accumulator : accumulator8 port map (clk, nRST_acc, C, V, balance);
 	comparator : comparator8 port map (balance, price_reg, balance_greater, balance_equal, balance_lower);
 	subtractor : subtractor8 port map (balance, price_reg, coins_to_return);
 

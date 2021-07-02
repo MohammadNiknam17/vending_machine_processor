@@ -8,7 +8,8 @@ use IEEE.NUMERIC_STD.ALL;
 entity accumulator8 is
 	port(
 		clk : in std_logic;
-		reset_acc : in std_logic;
+		nRST_acc : in std_logic;
+		C : in std_logic;	--becomes 1 when a coin is detected.
 		data_in : in std_logic_vector(7 downto 0);
 		data_out : out std_logic_vector(7 downto 0)
 		);
@@ -25,16 +26,6 @@ component adder8 IS
 	);
 end component;
 
-component register8 is
-	port(
-	 clk: in std_logic;
-	 nRST : in std_logic;
-	 regin : in std_logic_vector(7 downto 0);	
-	 regout : out std_logic_vector(7 downto 0)
-	);
-end component;
-
-
 signal temp1 : std_logic_vector(7 downto 0);
 signal temp2 : std_logic_vector(7 downto 0);
 signal c_in : std_logic;
@@ -42,6 +33,17 @@ signal c_out : std_logic;
 
 begin
 	adder8 : adder8 port map (data_in, temp2, c_in, temp1, c_out);
-	reg8 : register8 port map (clk, reset_acc, temp1, temp2);
+
+	register: process(clk)
+	begin
+		if (clk'event and clk = '1') then
+			if nRST = '0' then
+				data_out <= "00000000";
+			elsif (C = '1') then
+				temp2 <= temp1;
+			end if;
+		end if;
+	end process register;
+
 	data_out <= temp2;
 end rtl;

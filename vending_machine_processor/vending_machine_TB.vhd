@@ -73,12 +73,12 @@ BEGIN
    nRST <= '0', '1' after 150 ns;  -- hold reset state for 400 ns.
    s0 <= S0price; --soda S0 price= 33 cent
    S1 <= S1price; --soda S1 price= 65 cent
-   choice <= '1', '0' after 700 ns;
+   choice <= '1', '0' after 500 ns;
    C <= '0', '1' after 300 ns, '0' after 310 ns, '1'after 350ns, '0' after 360 ns,
              '1' after 400 ns, '0' after 410 ns, '1'after 450ns, '0' after 460 ns,
-             '1' after 700 ns, '0' after 710 ns, '1'after 750ns, '0' after 760 ns,
-             '1' after 800 ns, '0' after 810 ns;
+             '1' after 600 ns, '0' after 610 ns, '1'after 650ns, '0' after 660 ns,
+             '1' after 700 ns, '0' after 710 ns;
    
    v <= (others => '0'), Quarter after 290 ns, Nickel after 340 ns, Dime after 400 ns, Quarter after 440 ns,
-   Quarter after 700 ns, Nickel after 750 ns, Dime after 800 ns, (others => '0') after 810 ns;
+   Quarter after 600 ns, Nickel after 650 ns, Dime after 700 ns, (others => '0') after 710 ns;
 END;

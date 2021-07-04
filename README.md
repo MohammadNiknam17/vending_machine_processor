@@ -1,6 +1,6 @@
 # vending-machine-processor
 
-Basic 8-bit vending maching processor design which offers support for two drinks and currency of 5 cent, 10 cent, 25 cent denominations.
+Basic 8-bit vending machine processor design which offers support for two drinks and currency of 5 cent, 10 cent, 25 cent denominations.
 
 As an engineer working in a high tech company, asked to implement a RTL description of a vending machine processor using VHDL to control a vending machine. 
 Figure 1 shows the block diagram of the vending machine.

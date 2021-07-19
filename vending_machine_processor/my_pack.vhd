@@ -17,6 +17,11 @@ package my_pack is
     function subtractor8(
         signal A, B : std_logic_vector(7 downto 0))
         return std_logic_vector;
+
+    procedure comparator8(
+        signal a, b : in std_logic_vector(7 downto 0);
+        signal g_out, e_out, l_out : out std_logic);
+
     
     procedure register8(
         signal	clk : in std_logic;
@@ -56,9 +61,28 @@ package body my_pack is
         end subtractor8;
 
 
+    procedure comparator8(
+        signal a, b : in std_logic_vector(7 downto 0);
+        signal g_out, e_out, l_out : out std_logic) is
+            begin
+                if (a > b) then
+                    g_out <= '1';
+                    e_out <= '0';
+                    l_out <= '0';
+                elsif (a = b) then
+                    g_out <= '0';
+                    e_out <= '1';
+                    l_out <= '0';
+                else
+                    g_out <= '0';
+                    e_out <= '0';
+                    l_out <= '1';
+                end if;
+    end comparator8;
 
-    procedure register8 
-        (signal	clk : in std_logic;
+
+    procedure register8(
+        signal clk : in std_logic;
         signal nRST : in std_logic;
         signal regin : in std_logic_vector(7 downto 0);
         signal regout : out std_logic_vector(7 downto 0)) is

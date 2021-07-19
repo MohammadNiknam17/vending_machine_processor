@@ -4,6 +4,8 @@
 library ieee;
 USE ieee.std_logic_1164.all;
 use IEEE.NUMERIC_STD.ALL;
+library work;
+use work.my_pack.ALL;
 
 entity vending_machine is
 	port(
@@ -46,15 +48,6 @@ component comparator8 is
 		g_out : out std_logic;
 		e_out : out std_logic;
 		l_out : out std_logic);
-end component;
-
-component mux21 is
-	port(
-		A : in std_logic_vector(7 downto 0);
-		B : in std_logic_vector(7 downto 0);
-		s : in std_logic;
-		output : out std_logic_vector(7 downto 0)
-		);
 end component;
 
 type FSMTYPE is (INIT_STATE, Coin_Reception, soda_dispensation);
@@ -138,7 +131,11 @@ begin
         end case ;
     end process ; -- next_state
 
-	mux : mux21 port map(S0, S1, choice, price);
+	mux: process(S0, S1, choice)
+	begin
+		price <= mux21 (S0, S1, choice);
+	end process mux;
+
 	accumulator : accumulator8 port map (clk, nRST_acc, C, V, balance);
 	comparator : comparator8 port map (balance, price_reg, balance_greater, balance_equal, balance_lower);
 	subtractor : subtractor8 port map (balance, price_reg, coins_to_return);

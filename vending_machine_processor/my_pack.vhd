@@ -8,14 +8,18 @@ use IEEE.NUMERIC_STD.ALL;
 
 package my_pack is
     
-    function mux21 (
+    function mux21(
         signal A, B : std_logic_vector(7 downto 0);
         signal s : std_logic)
         return std_logic_vector;
     
+
+    function subtractor8(
+        signal A, B : std_logic_vector(7 downto 0))
+        return std_logic_vector;
     
-    procedure register8
-        (signal	clk : in std_logic;
+    procedure register8(
+        signal	clk : in std_logic;
         signal nRST : in std_logic;
         signal regin : in std_logic_vector(7 downto 0);
         signal regout : out std_logic_vector(7 downto 0));
@@ -24,7 +28,7 @@ end my_pack;
 ------------------------------------------------------------------------
 package body my_pack is
 
-    function mux21 (
+    function mux21(
         signal A, B : std_logic_vector(7 downto 0);
         signal s : std_logic)
         return std_logic_vector is
@@ -36,6 +40,21 @@ package body my_pack is
                 end case ;
                 return output;
     end mux21;
+
+
+    function subtractor8(
+        signal A, B : std_logic_vector(7 downto 0))
+        return std_logic_vector is
+            variable Avar, Bvar : unsigned(7 downto 0);
+            variable result : std_logic_vector(7 downto 0);
+        begin
+            Avar := unsigned(A);
+            Bvar := unsigned(B);
+            Bvar := not(Bvar) + "00000001";
+            result := std_logic_vector(Avar + Bvar);
+            return result;
+        end subtractor8;
+
 
 
     procedure register8 

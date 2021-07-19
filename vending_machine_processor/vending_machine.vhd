@@ -33,14 +33,6 @@ component accumulator8 is
 		);
 end component;
 
-component subtractor8 is
-	port(
-		a : in std_logic_vector(7 downto 0);
-		b : in std_logic_vector(7 downto 0);
-		result : out std_logic_vector(7 downto 0)
-		);
-end component;
-
 component comparator8 is
 	port(
 		a : in std_logic_vector(7 downto 0);
@@ -131,14 +123,10 @@ begin
         end case ;
     end process ; -- next_state
 
-	mux: process(S0, S1, choice)
-	begin
-		price <= mux21 (S0, S1, choice);
-	end process mux;
-
+	price <= mux21 (S0, S1, choice);
 	accumulator : accumulator8 port map (clk, nRST_acc, C, V, balance);
 	comparator : comparator8 port map (balance, price_reg, balance_greater, balance_equal, balance_lower);
-	subtractor : subtractor8 port map (balance, price_reg, coins_to_return);
+	coins_to_return <= subtractor8 (balance, price_reg);
 
 end rtl;
 

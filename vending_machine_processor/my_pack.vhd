@@ -18,14 +18,20 @@ package my_pack is
         signal A, B : std_logic_vector(7 downto 0))
         return std_logic_vector;
 
+
     procedure comparator8(
         signal a, b : in std_logic_vector(7 downto 0);
         signal g_out, e_out, l_out : out std_logic);
 
-    
+
+    procedure accumulator8(
+        signal clk , nRST_acc, C : in std_logic;
+        signal data_in, data_old : in std_logic_vector(7 downto 0);
+        signal data_out : out std_logic_vector(7 downto 0));
+
+
     procedure register8(
-        signal	clk : in std_logic;
-        signal nRST : in std_logic;
+        signal	clk, nRST : in std_logic;
         signal regin : in std_logic_vector(7 downto 0);
         signal regout : out std_logic_vector(7 downto 0));
     
@@ -81,9 +87,23 @@ package body my_pack is
     end comparator8;
 
 
+    procedure accumulator8(
+        signal clk , nRST_acc, C : in std_logic;
+		signal data_in, data_old : in std_logic_vector(7 downto 0);
+		signal data_out : out std_logic_vector(7 downto 0)) is
+        begin
+            if (clk'event and clk = '1') then
+                if nRST_acc = '0' then
+                    data_out <= (others => '0');
+                elsif (C = '1') then
+                    data_out <= std_logic_vector(unsigned(data_old) + unsigned(data_in));
+                end if;
+            end if;
+    end accumulator8;
+
+
     procedure register8(
-        signal clk : in std_logic;
-        signal nRST : in std_logic;
+        signal clk, nRST: in std_logic;
         signal regin : in std_logic_vector(7 downto 0);
         signal regout : out std_logic_vector(7 downto 0)) is
             begin

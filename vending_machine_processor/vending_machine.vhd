@@ -23,15 +23,6 @@ entity vending_machine is
 end vending_machine;
 
 architecture rtl of vending_machine is
-component accumulator8 is
-	port(
-		clk: in std_logic;
-		nRST_acc: in std_logic;
-		C : in std_logic;	--becomes 1 when a coin is detected.
-		data_in : in std_logic_vector(7 downto 0);
-		data_out : out std_logic_vector(7 downto 0)
-		);
-end component;
 
 type FSMTYPE is (INIT_STATE, Coin_Reception, soda_dispensation);
 
@@ -115,7 +106,7 @@ begin
     end process ; -- next_state
 
 	price <= mux21 (S0, S1, choice);
-	accumulator : accumulator8 port map (clk, nRST_acc, C, V, balance);
+	accumulator8 (clk, nRST_acc, C, balance, V, balance);
 	comparator8 (balance, price_reg, balance_greater, balance_equal, balance_lower);
 	coins_to_return <= subtractor8 (balance, price_reg);
 

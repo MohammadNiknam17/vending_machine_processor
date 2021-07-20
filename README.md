@@ -1,5 +1,7 @@
 # vending-machine-processor
 
+
+
 Basic 8-bit vending machine processor design which offers support for two drinks and currency of 5 cent, 10 cent, 25 cent denominations.
 
 As an engineer working in a high tech company, asked to implement a RTL description of a vending machine processor using VHDL to control a vending machine. 
@@ -20,3 +22,11 @@ release of soft drink type 1).
 The vending machine also should generate the 8-bit output E indicating the change to be returned in cents. 
 
 [Question link](https://www.chegg.com/homework-help/questions-and-answers/junior-engineer-working-high-tech-company-asked-implement-rtl-description-vending-machine--q36105103)
+
+
+.
+.
+
+[version 1.0 : Designed Structional-Modular, based on components; branch: Master](https://github.com/MohammadNiknam17/vending_machine_processor)
+
+[version 2.0 : Designed Behavioral-Package used, based on procedures-functions; branch: v2.0-behavioral-func-procedure](https://github.com/MohammadNiknam17/vending_machine_processor/tree/v2.0-behavioral-func-procedure)
